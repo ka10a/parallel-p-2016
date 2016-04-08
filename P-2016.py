@@ -5,10 +5,12 @@ class User:
     displayname = ''
     age = -1
     id = -1
+    comm = 0
     def new_user(self, name, age, id):
         self.displayname = name
         self.age = age
         self.id = id
+        self.comm = 0
 
 def del_space(s):
     a = []
@@ -26,24 +28,33 @@ def is_digit(s):
 
 #fout = open("test.txt", "w")
 fout2 = open("test2.txt", "w")
-fout3 = open("test3.txt", "w")
-fout4 = open("test4.txt", "w")
+#fout3 = open("test3.txt", "w")
+#fout4 = open("test4.txt", "w")
 f_users = codecs.open('Users.xml', encoding='utf-8')
 f_comm = codecs.open('Comments.xml', encoding='cp1251')
+#f_links = codecs.open('Posts.xml', encoding='cp1251')
 # 'cp1251')
 
-users = []
+users = {}
 for s in f_users.readlines():
-#for i in range(10):
+#for i in range(100):
     #s = f_users.readline()
-    #print(s, file=fout)
+    #print(s, file=fout3)
     a = del_space(s)
     name = ''
     age = -1
+    id = -1
     #print(a, file=fout2)
     for elem in a:
         #print(elem[:3], file=fout2)
-        #if (elem[])
+        #print(elem)
+        if (elem[:2] == 'Id'):
+            id = elem[4:-1]
+            if (id.isdigit()):
+                id = int(id)
+            else:
+                continue
+            #print(id)
         if (elem[:11] == 'DisplayName'):
             name = elem[13:-1]
         if (elem[:3] == 'Age'):
@@ -61,9 +72,10 @@ for s in f_users.readlines():
 
     if (20 <= age) and (age <= 25):
         x = User()
-        x.new_user(name, age, 0)
-        users.append(x)
+        x.new_user(name, age, id)
+        users[id] = x
 
+print(len(users))
 #print(len(users), file=fout3)
 #for elem in users:
 #    print(elem.age, file=fout3)
@@ -74,6 +86,6 @@ for s in f_users.readlines():
 
 #print(len(users))
 
-for i in range(100):
-    s = f_comm.readline()
-    print(s, file=fout4)
+#for i in range(100):
+    #s = f_comm.readline()
+    #print(s, file=fout4)
