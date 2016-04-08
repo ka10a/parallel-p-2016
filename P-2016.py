@@ -6,10 +6,12 @@ class User:
     age = -1
     id = -1
     comm = 0
-    def new_user(self, name, age, id):
+    link = ''
+    def new_user(self, name, age, id, link):
         self.displayname = name
         self.age = age
         self.id = id
+        self.link = link
         self.comm = 0
 
 def del_space(s):
@@ -42,6 +44,7 @@ for s in f_users.readlines():
     name = ''
     age = -1
     id = -2
+    link = ''
     #print(a, file=fout2)
     for elem in a:
         #print(elem[:3], file=fout2)
@@ -57,6 +60,8 @@ for s in f_users.readlines():
             #print(id)
         if (elem[:11] == 'DisplayName'):
             name = elem[13:-1]
+        if (elem[:10] == 'WebsiteUrl'):
+            link = elem[12:-1]
         if (elem[:3] == 'Age'):
             age = elem[5:-1]
             #print(age, file=fout2)
@@ -75,7 +80,7 @@ for s in f_users.readlines():
 
     if (20 <= age) and (age <= 25):
         x = User()
-        x.new_user(name, age, id)
+        x.new_user(name, age, id, link)
         users[id] = x
 
 print(len(users))
@@ -134,7 +139,10 @@ for i in range(150):
     x = users[rate[i][1]]
     print('<tr>', file=fout)
     print('<th>', i + 1, '</th>', sep='', file=fout)
-    print('<th>', x.displayname, '</th>', sep='', file=fout)
+    if (x.link > ''):
+        print('<th>','<a href=', "'",  x.link, "'", '</a>',  x.displayname, '</th>', sep='', file=fout)
+    else:
+        print('<th>',  x.displayname, '</th>', sep='', file=fout)
     print('<th>', x.age, '</th>', sep='', file=fout)
     print('<th>', x.comm, '</th>', sep='', file=fout)
     print('</tr>', file=fout)
