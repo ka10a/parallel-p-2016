@@ -31,7 +31,7 @@ fout2 = open("test2.txt", "w")
 #fout3 = open("test3.txt", "w")
 #fout4 = open("test4.txt", "w")
 f_users = codecs.open('Users.xml', encoding='utf-8')
-f_comm = codecs.open('Comments.xml', encoding='cp1251')
+f_comm = codecs.open('Comments.xml', encoding='utf-8')
 #f_links = codecs.open('Posts.xml', encoding='cp1251')
 # 'cp1251')
 
@@ -86,6 +86,16 @@ print(len(users))
 
 #print(len(users))
 
-#for i in range(100):
-    #s = f_comm.readline()
-    #print(s, file=fout4)
+for s in f_comm.readlines():
+    a = del_space(s)
+    id = 0
+    for elem in a:
+        if (elem[:6] == 'UserId'):
+            id = int(elem[8:-1])
+    if id in users:
+        users[id].comm += 1
+
+rate = []
+for id, user in users:
+    rate.append((user.comm, id))
+rate.sort(reverse=True)
