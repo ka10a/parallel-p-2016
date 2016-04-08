@@ -26,7 +26,7 @@ def del_space(s):
 def is_digit(s):
     a  = 0
 
-#fout = open("test.txt", "w")
+fout = open("test.txt", "w")
 fout2 = open("test2.txt", "w")
 #fout3 = open("test3.txt", "w")
 #fout4 = open("test4.txt", "w")
@@ -43,7 +43,7 @@ for s in f_users.readlines():
     a = del_space(s)
     name = ''
     age = -1
-    id = -1
+    id = -2
     #print(a, file=fout2)
     for elem in a:
         #print(elem[:3], file=fout2)
@@ -53,7 +53,9 @@ for s in f_users.readlines():
             if (id.isdigit()):
                 id = int(id)
             else:
-                continue
+                #print(s, file=fout)
+                id = -2
+                break
             #print(id)
         if (elem[:11] == 'DisplayName'):
             name = elem[13:-1]
@@ -65,10 +67,13 @@ for s in f_users.readlines():
                 age = int(age)
             else:
                 age = -1
+                break
             #print(age, file=fout2)
 
-    if ((name == '') or (age == -1)):
+    if ((name == '') or (age == -1) or (id == -2)):
         continue
+
+    #print(age)
 
     if (20 <= age) and (age <= 25):
         x = User()
@@ -96,6 +101,7 @@ for s in f_comm.readlines():
         users[id].comm += 1
 
 rate = []
-for id, user in users:
-    rate.append((user.comm, id))
+for id in users.keys():
+    #print(id, file=fout2)
+    rate.append((users[id].comm, int(id)))
 rate.sort(reverse=True)
