@@ -23,10 +23,7 @@ def del_space(s):
         i += 1
     return a
 
-def is_digit(s):
-    a  = 0
-
-fout = open("top-of-150-users.html", "w")
+fout = open("top-of-150-users.html", "w", encoding='utf-8')
 #fout2 = open("test2.txt", "w")
 #fout3 = open("test3.txt", "w")
 #fout4 = open("test4.txt", "w")
