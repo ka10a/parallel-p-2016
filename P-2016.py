@@ -40,8 +40,8 @@ def read_users():
     for s in f_users.readlines():
         a = del_space(s)
         name = ''
-        age = -1
-        id = -2
+        age = None
+        id = None
         link = ''
 
         for elem in a:
@@ -69,7 +69,7 @@ def read_users():
                     age = -1
                     break
 
-        if ((name == '') or (age == -1) or (id == -2)):
+        if ((name == '') or (age is None) or (id is None)):
             continue
 
         if (20 <= age) and (age <= 25):
