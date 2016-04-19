@@ -97,16 +97,41 @@ def read_comments(users):
 
 
 def generate_table(users, rate):
-    print('<style type="text/css">', 'table', '{', 'border-collapse: collapse;', '}', sep='\n', file=fout)
-    print('table th,', 'table td {', 'padding: 0 10px;', '}', sep='\n', file=fout)
-    print('table.brd th,', 'table.brd td {', 'border: 1px solid #000;', '}', sep='\n', file=fout)
-    print('div', '{', 'background-color: white;', 'border-radius: 20px;', sep='\n', file=fout)
-    print('font-family: "Georgia", serif;', 'paddind-top: 10px;', 'padding-bottom: 10px;,', '}', sep='\n', file=fout)
-    print('body {background-color: aliceblue;}', '</style>', sep='\n', file=fout)
-    print('<body style="padding: 0 20%">', '<div style="padding: 0 18%">', sep='\n', file=fout)
-    print('<h1 style="padding: 0 20%">Top of 150 users</h1>', '<table>', sep='\n', file=fout)
-    print('<tr>', '<th><h3>#</h3></th>', '<th><h3>DisplayName</h3></th>', sep='\n', file=fout)
-    print('<th><h3>Age</h3></th>', '<th><h3>Comments</h3></th>', '</tr>', sep='\n', file=fout)
+    print("""
+        <style type="text/css">
+        table
+        {
+        border-collapse: collapse;
+        }
+        table th,
+        table td {
+        padding: 0 10px;
+        }
+        table.brd th,
+        table.brd td {
+        border: 1px solid #000;
+        }
+        div
+        {
+        background-color: white;
+        border-radius: 20px;
+        font-family: "Georgia", serif;
+        paddind-top: 10px;
+        padding-bottom: 10px;,
+        }
+        body {background-color: aliceblue;}
+        </style>
+        <body style="padding: 0 20%">
+        <div style="padding: 0 18%">
+        <h1 style="padding: 0 20%">Top of 150 users</h1>
+        <table>
+        <tr>
+        <th><h3>#</h3></th>
+        <th><h3>DisplayName</h3></th>
+        <th><h3>Age</h3></th>
+        <th><h3>Comments</h3></th>
+        </tr>
+        """, file=fout)
 
     for i in range(150):
         x = User()
@@ -121,7 +146,11 @@ def generate_table(users, rate):
         print('<th>', x.comm, '</th>', sep='', file=fout)
         print('</tr>', file=fout)
 
-    print('</table>', '</div>', '</body>', sep='\n', file=fout)
+    print("""
+        </table>
+        </div>
+        </body>
+        """, file=fout)
 
 
 users = read_comments(read_users())
