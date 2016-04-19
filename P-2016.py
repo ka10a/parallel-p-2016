@@ -6,19 +6,22 @@ fout = open("top-of-150-users.html", "w", encoding='utf-8')
 #fout2 = open("test2.txt", "w")
 f_users = codecs.open('Users.xml', encoding='utf-8')
 f_comm = codecs.open('Comments.xml', encoding='utf-8')
+f_style_temp = open("style_template.txt", "r")
+f_table_temp = open("table_template.txt", "r")
+f_table_end = open("table_end.txt", "r")
 
 
 class User:
     displayname = ''
-    age = -1
-    id = -1
+    age = None
+    id = None
     comm = 0
     link = ''
 
-    def new_user(self, name, age, id, link):
+    def new_user(self, name, age, _id, link):
         self.displayname = name
         self.age = age
-        self.id = id
+        self.id = _id
         self.link = link
         self.comm = 0
 
@@ -26,7 +29,7 @@ class User:
 def del_space(s):
     a = []
     i = 0
-    while (i < len(s)):
+    while i < len(s):
         k = i
         while (i != len(s)) and (s[i] != ' '):
             i += 1
@@ -41,41 +44,41 @@ def read_users():
         a = del_space(s)
         name = ''
         age = None
-        id = None
+        _id = None
         link = ''
 
         for elem in a:
-            if (elem.startswith('Id')):
-                id = elem[4:-1]
+            if elem.startswith('Id'):
+                _id = elem[4:-1]
 
-                if (id.isdigit()):
-                    id = int(id)
+                if _id.isdigit():
+                    _id = int(_id)
                 else:
-                    id = -2
+                    _id = None
                     break
 
-            if (elem.startswith('DisplayName')):
+            if elem.startswith('DisplayName'):
                 name = elem[13:-1]
 
-            if (elem.startswith('WebsiteUrl')):
+            if elem.startswith('WebsiteUrl'):
                 link = elem[12:-1]
 
-            if (elem.startswith('Age')):
+            if lem.startswith('Age'):
                 age = elem[5:-1]
 
-                if (age.isdigit()):
+                if age.isdigit():
                     age = int(age)
                 else:
-                    age = -1
+                    age = None
                     break
 
-        if ((name == '') or (age is None) or (id is None)):
+        if (name == '') or (age is None) or (_id is None):
             continue
 
         if (20 <= age) and (age <= 25):
-            x = User()
-            x.new_user(name, age, id, link)
-            users[id] = x
+            new = User()
+            new.new_user(name, age, _id, link)
+            users[_id] = new
 
     #print(len(users))
     return users
@@ -84,83 +87,46 @@ def read_users():
 def read_comments(users):
     for s in f_comm.readlines():
         a = del_space(s)
-        id = 0
+        _id = 0
 
         for elem in a:
-            if (elem.startswith('UserId')):
-                id = int(elem[8:-1])
+            if elem.startswith('UserId'):
+                _id = int(elem[8:-1])
 
-        if id in users:
-            users[id].comm += 1
+        if _id in users:
+            users[_id].comm += 1
 
     return users
 
 
 def generate_table(users, rate):
-    print("""
-        <style type="text/css">
-        table
-        {
-        border-collapse: collapse;
-        }
-        table th,
-        table td {
-        padding: 0 10px;
-        }
-        table.brd th,
-        table.brd td {
-        border: 1px solid #000;
-        }
-        div
-        {
-        background-color: white;
-        border-radius: 20px;
-        font-family: "Georgia", serif;
-        paddind-top: 10px;
-        padding-bottom: 10px;,
-        }
-        body {background-color: aliceblue;}
-        </style>
-        <body style="padding: 0 20%">
-        <div style="padding: 0 18%">
-        <h1 style="padding: 0 20%">Top of 150 users</h1>
-        <table>
-        <tr>
-        <th><h3>#</h3></th>
-        <th><h3>DisplayName</h3></th>
-        <th><h3>Age</h3></th>
-        <th><h3>Comments</h3></th>
-        </tr>
-        """, file=fout)
+    fout.write(f_style_temp.read())
+    fout.write(f_table_temp.read())
 
     for i in range(150):
-        x = User()
-        x = users[rate[i][1]]
+        table_user = User()
+        table_user = users[rate[i][1]]
         print("<tr>", file=fout)
-        print('<th>{0}</th>'.format(i + 1), file=fout)
-        if (x.link > ""):
-            print("<th> <a href='{0}'</a>".format(x.link),  x.displayname, "</th>", sep='', file=fout)
+        print("<th>{0}</th>".format(i + 1), file=fout)
+        if table_user.link != "":
+            print("<th> <a href='{0}'</a>".format(table_user.link),  table_user.displayname, "</th>", sep='', file=fout)
         else:
-            print('<th>{0}</th>'.format(x.displayname), file=fout)
-        print('<th>{0}</th>'.format(x.age), file=fout)
-        print('<th>{0}</th>'.format(x.comm), file=fout)
+            print("<th>{0}</th>".format(table_userx.displayname), file=fout)
+        print("<th>{0}</th>".format(table_user.age), file=fout)
+        print("<th>{0}</th>".format(table_user.comm), file=fout)
         print("</tr>", file=fout)
 
-    print("""
-        </table>
-        </div>
-        </body>
-        """, file=fout)
+    fout.write(f_table_end.read())
 
 
-users = read_comments(read_users())
+_users = read_comments(read_users())
 
-rate = []
-for __id in users.keys():
-    rate.append((users[__id].comm, int(__id)))
-rate.sort(reverse=True)
+_rate = []
+for _id in _users.keys():
+    _rate.append((_users[_id].comm, int(_id)))
+_rate.sort(reverse=True)
 
-generate_table(users, rate)
+generate_table(_users, _rate)
 
 
 
