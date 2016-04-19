@@ -156,8 +156,8 @@ def generate_table(users, rate):
 users = read_comments(read_users())
 
 rate = []
-for id in users.keys():
-    rate.append((users[id].comm, int(id)))
+for __id in users.keys():
+    rate.append((users[__id].comm, int(__id)))
 rate.sort(reverse=True)
 
 generate_table(users, rate)
