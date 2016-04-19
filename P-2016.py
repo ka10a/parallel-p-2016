@@ -136,15 +136,15 @@ def generate_table(users, rate):
     for i in range(150):
         x = User()
         x = users[rate[i][1]]
-        print('<tr>', file=fout)
-        print('<th>', i + 1, '</th>', sep='', file=fout)
-        if (x.link > ''):
-            print('<th>','<a href=', "'",  x.link, "'", '</a>',  x.displayname, '</th>', sep='', file=fout)
+        print("<tr>", file=fout)
+        print('<th>{}</th>'.format(i + 1), file=fout)
+        if (x.link > ""):
+            print("<th> <a href='{}'</a>".format(x.link),  x.displayname, "</th>", sep='', file=fout)
         else:
-            print('<th>',  x.displayname, '</th>', sep='', file=fout)
-        print('<th>', x.age, '</th>', sep='', file=fout)
-        print('<th>', x.comm, '</th>', sep='', file=fout)
-        print('</tr>', file=fout)
+            print('<th>{}</th>'.format(x.displayname), file=fout)
+        print('<th>{}</th>'.format(x.age), file=fout)
+        print('<th>{}</th>'.format(x.comm), file=fout)
+        print("</tr>", file=fout)
 
     print("""
         </table>
