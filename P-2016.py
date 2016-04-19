@@ -3,7 +3,6 @@ import codecs
 
 
 fout = open("top-of-150-users.html", "w", encoding='utf-8')
-#fout2 = open("test2.txt", "w")
 f_users = codecs.open('Users.xml', encoding='utf-8')
 f_comm = codecs.open('Comments.xml', encoding='utf-8')
 f_style_temp = open("style_template.txt", "r")
@@ -63,7 +62,7 @@ def read_users():
             if elem.startswith('WebsiteUrl'):
                 link = elem[12:-1]
 
-            if lem.startswith('Age'):
+            if elem.startswith('Age'):
                 age = elem[5:-1]
 
                 if age.isdigit():
@@ -111,7 +110,7 @@ def generate_table(users, rate):
         if table_user.link != "":
             print("<th> <a href='{0}'</a>".format(table_user.link),  table_user.displayname, "</th>", sep='', file=fout)
         else:
-            print("<th>{0}</th>".format(table_userx.displayname), file=fout)
+            print("<th>{0}</th>".format(table_user.displayname), file=fout)
         print("<th>{0}</th>".format(table_user.age), file=fout)
         print("<th>{0}</th>".format(table_user.comm), file=fout)
         print("</tr>", file=fout)
