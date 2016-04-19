@@ -137,13 +137,13 @@ def generate_table(users, rate):
         x = User()
         x = users[rate[i][1]]
         print("<tr>", file=fout)
-        print('<th>{}</th>'.format(i + 1), file=fout)
+        print('<th>{0}</th>'.format(i + 1), file=fout)
         if (x.link > ""):
-            print("<th> <a href='{}'</a>".format(x.link),  x.displayname, "</th>", sep='', file=fout)
+            print("<th> <a href='{0}'</a>".format(x.link),  x.displayname, "</th>", sep='', file=fout)
         else:
-            print('<th>{}</th>'.format(x.displayname), file=fout)
-        print('<th>{}</th>'.format(x.age), file=fout)
-        print('<th>{}</th>'.format(x.comm), file=fout)
+            print('<th>{0}</th>'.format(x.displayname), file=fout)
+        print('<th>{0}</th>'.format(x.age), file=fout)
+        print('<th>{0}</th>'.format(x.comm), file=fout)
         print("</tr>", file=fout)
 
     print("""
