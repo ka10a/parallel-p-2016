@@ -6,9 +6,6 @@ import temp
 fout = open("top-of-150-users.html", "w", encoding='utf-8')
 f_users = codecs.open('Users.xml', encoding='utf-8')
 f_comm = codecs.open('Comments.xml', encoding='utf-8')
-f_style_temp = open("style_template.txt", "r")
-f_table_temp = open("table_template.txt", "r")
-f_table_end = open("table_end.txt", "r")
 
 
 class User:
@@ -18,13 +15,12 @@ class User:
     comm = 0
     link = ''
 
-    def new_user(self, name, age, _id, link):
+    def __init__(self, name, age, _id, link):
         self.displayname = name
         self.age = age
         self.id = _id
         self.link = link
         self.comm = 0
-        return self
 
 
 def del_space(s):
@@ -77,7 +73,7 @@ def read_users():
             continue
 
         if (20 <= age) and (age <= 25):
-            new = new_user(name, age, _id, link)
+            new = User(name, age, _id, link)
             users[_id] = new
 
     #print(len(users))
