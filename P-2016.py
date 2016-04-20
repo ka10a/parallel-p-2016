@@ -1,5 +1,6 @@
 from zipfile import ZipFile
 import codecs
+import temp
 
 
 fout = open("top-of-150-users.html", "w", encoding='utf-8')
@@ -23,6 +24,7 @@ class User:
         self.id = _id
         self.link = link
         self.comm = 0
+        return self
 
 
 def del_space(s):
@@ -75,8 +77,7 @@ def read_users():
             continue
 
         if (20 <= age) and (age <= 25):
-            new = User()
-            new.new_user(name, age, _id, link)
+            new = new_user(name, age, _id, link)
             users[_id] = new
 
     #print(len(users))
@@ -99,8 +100,8 @@ def read_comments(users):
 
 
 def generate_table(users, rate):
-    fout.write(f_style_temp.read())
-    fout.write(f_table_temp.read())
+    print(temp.STYLE_TEMPLATE, file=fout)
+    print(temp.TABLE_TEMPLATE, file=fout)
 
     for i in range(150):
         table_user = User()
@@ -115,7 +116,7 @@ def generate_table(users, rate):
         print("<th>{0}</th>".format(table_user.comm), file=fout)
         print("</tr>", file=fout)
 
-    fout.write(f_table_end.read())
+    print(temp.TABLE_END, file=fout)
 
 
 _users = read_comments(read_users())
