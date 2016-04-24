@@ -86,11 +86,11 @@ def read_users():
 
 def read_comments(users):
     for new_comm in f_comm.readlines():
-        categories_comm= del_space(new_comm)
+        categories_comm = del_space(new_comm)
         id_user = None
 
         for elem in categories_comm:
-            if elem.startswith('UserId'):
+            if elem.startswith('UserId='):
                 id_user = int(elem[8:-1])
 
         if id_user in users:
