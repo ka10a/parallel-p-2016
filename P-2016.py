@@ -6,6 +6,7 @@ import temp
 fout = open("top-of-150-users.html", "w", encoding='utf-8')
 f_users = codecs.open('Users.xml', encoding='utf-8')
 f_comm = codecs.open('Comments.xml', encoding='utf-8')
+TOP_USERS = 150
 
 
 class User:
@@ -103,7 +104,7 @@ def generate_table(users, rate):
     print(temp.STYLE_TEMPLATE, file=fout)
     print(temp.TABLE_TEMPLATE, file=fout)
 
-    for i in range(150):
+    for i in range(TOP_USERS):
         table_user = users[rate[i][1]]
         print("<tr>", file=fout)
         print("<th>{0}</th>".format(i + 1), file=fout)
