@@ -94,7 +94,7 @@ def read_comments(users):
             if elem.startswith('UserId='):
                 id_user = int(elem[8:-1])
 
-        if id_user in users:
+        if id_user in users.keys():
             users[id_user].comm += 1
 
     return users
